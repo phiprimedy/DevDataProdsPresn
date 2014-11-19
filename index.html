@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Child Height Prediction</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Child Height Prediction">
+  <meta name="author" content="Phi Primed">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Child Height Prediction</h1>
+    <h2>using Galton data</h2>
+    <p>Phi Primed<br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Synopsis</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>A web app that predicts child&#39;s height based on the input father&#39;s and mother&#39;s height</li>
+<li>Uses the <em>galton</em> dataset from the <em>UsingR</em> package
+
+<ul>
+<li>built from a tabulated data set used by Galton in 1885 
+
+<ul>
+<li>relationship between a parent&#39;s height and their children&#39;s</li>
+</ul></li>
+<li>928 observations on 2 variables (928 children and 205 parents)
+
+<ul>
+<li>child : the child&#39;s height</li>
+<li>parent : the &quot;midparent&quot; height 
+
+<ul>
+<li>average of the fathers height and 1.08 times the mother&#39;s</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>A linear model is built from the dataset for the purpose of child height prediction</li>
+<li>The predicted height is shown along with the 95% confidence interval</li>
+<li>Frequency distributions of parent&#39;s height and child height are also shown
+
+<ul>
+<li>purpose is to illustrate <em>Regression toward the mean</em></li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Providing Input</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The mean, min and max values for parent height in <em>galton</em></li>
+</ul>
+
+<pre><code>## [1] &quot;Mean:  68.3081896551724&quot;
+</code></pre>
+
+<pre><code>## [1] &quot;Min:  64&quot;
+</code></pre>
+
+<pre><code>## [1] &quot;Max:  73&quot;
+</code></pre>
+
+<ul>
+<li>Since the above values are for &quot;midparent&quot; height, inputs slightly lower and higher are allowed for father&#39;s and mother&#39;s height</li>
+<li>Use the sliders to provide input values for father&#39;s height and mother&#39;s height
+
+<ul>
+<li>initial defaults are set to be close to the mean</li>
+</ul></li>
+<li>&quot;midparent&quot; height is computed by the app using your inputs and displayed</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Prediction using a Linear Model</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The linear model built using the <em>galton</em> dataset</li>
+</ul>
+
+<p><img src="assets/fig/smallplot.png" alt="plot of chunk smallplot"> </p>
+
+<ul>
+<li>A sample prediction (fit - fitted value lwr,upr - bounds of 95% confidence interval)</li>
+</ul>
+
+<pre><code class="r">predict(model, data.frame(parent=c(70)), interval=&quot;confidence&quot;)
+##     fit   lwr   upr
+## 1 69.18 68.98 69.38
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Regression towards the mean</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>When &quot;midparent&quot; height is significantly higher than the mean, child height is not as much higher than its mean</li>
+<li>When &quot;midparent&quot; height is significantly lower than the mean, child height is not as much lower than its mean</li>
+<li>This is illustrated via the frequency distribution plots displayed by the app</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Synopsis'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Providing Input'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Prediction using a Linear Model'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Regression towards the mean'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
